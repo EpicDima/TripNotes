@@ -9,6 +9,7 @@ Application, that provide ability to create trip:
   - track time, 
   - image upload, 
   - custom description.
+
 All trips can be dispayed as 'My trips', if trip is not started 
 or 'My history', if user marked this trip as done or time of trip is finished.
 For trips provide crud operations.
