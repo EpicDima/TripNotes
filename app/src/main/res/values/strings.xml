@@ -3,4 +3,18 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="title_activity_login">TripNotes</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_password_repeat">Repeat password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_to_sign_up">Register</string>
+    <string name="action_to_sign_in">Login</string>
+    <string name="invalid_email">Not a valid email</string>
+    <string name="invalid_password">Password must be more than 5 characters long</string>
+    <string name="invalid_password_repeat">Entered passwords do not match</string>
+    <string name="login_failed">Login failed</string>
+    <string name="registration_failed">Registration failed</string>
 </resources>

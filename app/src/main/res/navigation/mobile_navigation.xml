@@ -3,23 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_trips">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_trips"
         android:name="com.asistlab.tripnotes.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_trips_to_editTripFragment"
+            app:destination="@id/editTripFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_history"
         android:name="com.asistlab.tripnotes.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_statistics"
         android:name="com.asistlab.tripnotes.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.asistlab.tripnotes.ui.SettingsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/editTripFragment"
+        android:name="com.asistlab.tripnotes.ui.EditTripFragment"
+        android:label="edit_trip_fragment"
+        tools:layout="@layout/edit_trip_fragment" />
 </navigation>

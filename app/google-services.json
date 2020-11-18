@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "550331785666",
+    "firebase_url": "https://tripnotes-295919.firebaseio.com",
+    "project_id": "tripnotes-295919",
+    "storage_bucket": "tripnotes-295919.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550331785666:android:d3ccec19c0ad9239cdf65b",
+        "android_client_info": {
+          "package_name": "com.asistlab.tripnotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550331785666-vv1fbjtgcobkvmkcr38gh8c6c7127pri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOjumCFURlq2OfjsUPhtqz6lkCFRirYik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550331785666-vv1fbjtgcobkvmkcr38gh8c6c7127pri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

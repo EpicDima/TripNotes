@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/**
+ * @author EpicDima
+ */
 class HomeViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {

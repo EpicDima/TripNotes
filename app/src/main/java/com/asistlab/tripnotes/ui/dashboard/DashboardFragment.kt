@@ -10,6 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.asistlab.tripnotes.R
 
+/**
+ * @author EpicDima
+ */
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
