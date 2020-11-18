@@ -1,27 +1,33 @@
 package com.asistlab.tripnotes.ui.login
 
 import android.util.Patterns
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.asistlab.tripnotes.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 /**
  * @author EpicDima
  */
-class LoginViewModel : ViewModel() {
+class LoginViewModel @ViewModelInject constructor(
+    private val auth: FirebaseAuth,
+    private val database: DatabaseReference
+): ViewModel() {
 
-    private val auth: FirebaseAuth = Firebase.auth
+//    private val storage: StorageReference = Firebase.storage.reference
 
     private val _isLogged = MutableLiveData(false)
     val isLogged: MutableLiveData<Boolean> = _isLogged
 
     init {
-        _isLogged.value = auth.currentUser != null
+        updateAndLoginUser()
     }
 
     private val _isLoginPage = MutableLiveData(true)
@@ -41,7 +47,7 @@ class LoginViewModel : ViewModel() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    _isLogged.value = true
+                    updateAndLoginUser()
                 } else {
                     _error.value = R.string.login_failed
                 }
@@ -54,7 +60,7 @@ class LoginViewModel : ViewModel() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    _isLogged.value = true
+                    updateAndLoginUser()
                 } else {
                     _error.value = R.string.registration_failed
                 }
@@ -85,11 +91,27 @@ class LoginViewModel : ViewModel() {
     private fun isPasswordRepeatValid(password: String, repeatPassword: String): Boolean {
         return password == repeatPassword
     }
-}
 
-data class FormState(
-    val emailError: Int? = null,
-    val passwordError: Int? = null,
-    val passwordRepeatError: Int? = null,
-    val isDataValid: Boolean = false
-)
+    private fun updateAndLoginUser() {
+        if (auth.currentUser != null) {
+            try {
+                auth.currentUser!!.reload()
+                _isLogged.value = true
+                database.child("users").child(auth.currentUser!!.uid)
+//                auth.currentUser!!.reload().addOnCompleteListener {
+//                    _isLogged.value = true
+//                    database.child("users").child(auth.currentUser!!.uid)
+//                }
+            } catch (e: FirebaseAuthInvalidUserException) {
+                _error.value = R.string.login_failed
+            }
+        }
+    }
+
+    data class FormState(
+        val emailError: Int? = null,
+        val passwordError: Int? = null,
+        val passwordRepeatError: Int? = null,
+        val isDataValid: Boolean = false
+    )
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_trips">
+
+    <fragment
+        android:id="@+id/navigation_trips"
+        android:name="com.asistlab.tripnotes.ui.trips.TripsFragment"
+        android:label="@string/title_trips"
+        tools:layout="@layout/fragment_trips" >
+        <action
+            android:id="@+id/action_navigation_trips_to_editTripFragment"
+            app:destination="@id/editTripFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.asistlab.tripnotes.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/navigation_statistics"
+        android:name="com.asistlab.tripnotes.ui.statistics.StatisticsFragment"
+        android:label="@string/title_statistics"
+        tools:layout="@layout/fragment_statistics" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.asistlab.tripnotes.ui.account.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/editTripFragment"
+        android:name="com.asistlab.tripnotes.ui.edit.EditTripFragment"
+        android:label="edit_trip_fragment"
+        tools:layout="@layout/fragment_edit_trip" />
+</navigation>

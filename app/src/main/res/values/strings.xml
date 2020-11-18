@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">TripNotes</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 
-    <string name="title_activity_login">TripNotes</string>
+    <string name="title_trips">My Trips</string>
+    <string name="title_history">My History</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="title_account">Account</string>
+    <string name="title_choose_point">Choose point</string>
+    <string name="title_login">TripNotes</string>
+
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_password_repeat">Repeat password</string>
@@ -17,4 +20,22 @@
     <string name="invalid_password_repeat">Entered passwords do not match</string>
     <string name="login_failed">Login failed</string>
     <string name="registration_failed">Registration failed</string>
+    <string name="user_deleted">Your profile has been deleted</string>
+
+    <string name="sign_out">Sign out</string>
+    <string name="email">Email</string>
+    <string name="sign_out_dialog_title">Sign out</string>
+    <string name="sign_out_dialog_message">Do you really want to sign out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="track_time">Track time</string>
+    <string name="plan_time">Plan time</string>
+    <string name="started">Started</string>
+    <string name="trip_image">Trip image</string>
+    <string name="add_point">Add point</string>
+    <string name="center_of_map">Center of map</string>
+    <string name="remaining_time">Remaining time</string>
+    <string name="cant_select_place">This place can\'t be selected</string>
+
 </resources>

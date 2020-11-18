@@ -2,30 +2,29 @@ package com.asistlab.tripnotes.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.asistlab.tripnotes.*
 import com.asistlab.tripnotes.databinding.ActivityLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @author EpicDima
  */
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         viewModel.isLogged.observe(this) {
             if (it) {
@@ -52,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
             binding.run {
                 if (it) {
                     passwordRepeat.hide()
+                    passwordRepeat.text = null
                     signIn.show()
                     signUp.gone()
                     actionChange.setText(R.string.action_to_sign_up)
@@ -89,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
     private fun setResultObserver() {
         viewModel.error.observe(this, Observer {
             val error = it ?: return@Observer
-            Toast.makeText(applicationContext, error, Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, error, Toast.LENGTH_LONG).show()
         })
     }
 
@@ -117,16 +117,4 @@ class LoginActivity : AppCompatActivity() {
             viewModel.isLoginPage.value = !viewModel.isLoginPage.value!!
         }
     }
-}
-
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
 }
