@@ -7,6 +7,7 @@
     <string name="title_account">Account</string>
     <string name="title_choose_point">Choose point</string>
     <string name="title_login">TripNotes</string>
+    <string name="title_trip">Trip</string>
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -29,13 +30,44 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
-    <string name="track_time">Track time</string>
-    <string name="plan_time">Plan time</string>
-    <string name="started">Started</string>
-    <string name="trip_image">Trip image</string>
+    <string name="end_time">End time</string>
+    <string name="start_time">Start time</string>
+    <string name="started">Active</string>
     <string name="add_point">Add point</string>
     <string name="center_of_map">Center of map</string>
-    <string name="remaining_time">Remaining time</string>
+    <string name="remaining_time">Remaining days</string>
+    <string name="remaining_time_less_than_day">Less than one day</string>
     <string name="cant_select_place">This place can\'t be selected</string>
+    <string name="invalid_name">The name must contain more than 5 non-empty characters</string>
+    <string name="invalid_description">Invalid description</string>
+    <string name="invalid_dates">The dates must be different</string>
+    <string name="invalid_points">There must be at least two trip\'s locations</string>
+    <string name="add_new_trip">Add new trip</string>
+    <string name="edit">Edit</string>
+    <string name="ok">OK</string>
+    <string name="to_map">View the route on the map</string>
+    <string name="create_trip">Create trip</string>
+    <string name="edit_trip">Edit trip</string>
+    <string name="no_connection">No connection</string>
+    <string name="done">Done</string>
+    <string name="delete_this_trip">Delete this trip</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="trip_s_locations">Trip\'s locations</string>
+    <string name="choose_trip_time">Choose a trip time</string>
+    <string name="ending_date">Ending date</string>
+    <string name="starting_date">Starting date</string>
+    <string name="enter_description">Enter a description</string>
+    <string name="trip_description">Trip description</string>
+    <string name="enter_name">Enter a name</string>
+    <string name="trip_name">Trip name</string>
+    <string name="click_on_image_help">Click on the image to change it</string>
+    <string name="trip_image">Trip image</string>
+    <string name="coordinate">Coordinate</string>
+    <string name="active_trips_count">Active trips count</string>
+    <string name="not_started_trips_count">Not started trips count</string>
+    <string name="completed_trips_count">Completed trips count</string>
+    <string name="all_trips_count">All trips count</string>
+
 
 </resources>

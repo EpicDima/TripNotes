@@ -21,8 +21,6 @@ class LoginViewModel @ViewModelInject constructor(
     private val database: DatabaseReference
 ): ViewModel() {
 
-//    private val storage: StorageReference = Firebase.storage.reference
-
     private val _isLogged = MutableLiveData(false)
     val isLogged: MutableLiveData<Boolean> = _isLogged
 

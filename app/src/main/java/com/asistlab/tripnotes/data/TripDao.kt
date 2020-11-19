@@ -9,24 +9,25 @@ import com.asistlab.tripnotes.data.model.Trip
  */
 @Dao
 interface TripDao {
+    @Query("SELECT * FROM trips WHERE id = :id")
+    fun selectById(id: Long): List<Trip>
+
     @Query("SELECT * FROM trips")
     fun selectLiveData(): LiveData<List<Trip>>
 
     @Query("SELECT * FROM trips")
     suspend fun select(): List<Trip>
 
-    @Query("SELECT * FROM trips WHERE done = :done")
-    fun selectLiveDataWhereDone(done: Boolean): LiveData<List<Trip>>
-
-    @Query("SELECT * FROM trips WHERE done = :done")
-    suspend fun selectWhereDone(done: Boolean): List<Trip>
-
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insert(vararg trips: Trip)
+    suspend fun insert(vararg trips: Trip): LongArray
 
     @Update(onConflict = OnConflictStrategy.ABORT)
     suspend fun update(vararg trips: Trip)
 
     @Delete
     suspend fun delete(vararg trips: Trip)
+
+
+    @Query("DELETE FROM trips")
+    suspend fun deleteALl()
 }

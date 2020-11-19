@@ -18,8 +18,8 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Singleton
     @Provides
-    fun provideDatabase(context: Context): AppDatabase {
-        return AppDatabase.getInstance(context)
+    fun provideDatabase(application: Application): AppDatabase {
+        return AppDatabase.getInstance(application)
     }
 
     @Singleton

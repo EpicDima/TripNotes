@@ -10,17 +10,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="14dp">
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:contentDescription="@string/trip_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:contentDescription="@string/trip_image" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/name"
@@ -29,7 +32,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="16sp"
+            android:textSize="17sp"
             app:layout_constraintEnd_toStartOf="@+id/active"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/image"
@@ -40,54 +43,59 @@
             android:id="@+id/active"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/started"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:text="@string/started"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/plan_time_label"
+            android:id="@+id/start_time_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/plan_time"
+            android:textSize="16sp"
+            android:text="@string/start_time"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <TextView
-            android:id="@+id/plan_time"
-            android:layout_width="wrap_content"
+            android:id="@+id/start_time"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/start_time_label"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/track_time"
-            app:layout_constraintTop_toTopOf="@+id/plan_time_label"
+            app:layout_constraintStart_toEndOf="@+id/start_time_label"
+            app:layout_constraintTop_toTopOf="@+id/start_time_label"
             tools:text="10:00 25 января 2020" />
 
         <TextView
-            android:id="@+id/track_time_label"
+            android:id="@+id/end_time_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/track_time"
-            app:layout_constraintStart_toStartOf="@+id/plan_time_label"
-            app:layout_constraintTop_toBottomOf="@+id/plan_time_label" />
+            android:text="@string/end_time"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/start_time_label"
+            app:layout_constraintTop_toBottomOf="@+id/start_time_label" />
 
         <TextView
-            android:id="@+id/track_time"
-            android:layout_width="wrap_content"
+            android:id="@+id/end_time"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/end_time_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/track_time_label"
-            app:layout_constraintTop_toTopOf="@+id/track_time_label"
+            app:layout_constraintStart_toStartOf="@+id/start_time"
+            app:layout_constraintTop_toTopOf="@+id/end_time_label"
             tools:text="88 часов" />
 
         <TextView
@@ -96,22 +104,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/remaining_time"
+            android:textSize="16sp"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/plan_time_label"
-            app:layout_constraintTop_toBottomOf="@+id/plan_time_label" />
+            app:layout_constraintStart_toStartOf="@+id/end_time_label"
+            app:layout_constraintTop_toBottomOf="@+id/end_time_label"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/remaining_time"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="16sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/track_time_label"
-            app:layout_constraintTop_toTopOf="@+id/track_time_label"
-            tools:text="88 часов" />
+            app:layout_constraintStart_toEndOf="@+id/remaining_time_label"
+            app:layout_constraintTop_toTopOf="@+id/remaining_time_label"
+            tools:text="88 часов jsdfjk sndkjfn ksjdnfksj "
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

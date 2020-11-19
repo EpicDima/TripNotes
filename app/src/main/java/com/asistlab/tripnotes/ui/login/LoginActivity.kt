@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.asistlab.tripnotes.*
 import com.asistlab.tripnotes.databinding.ActivityLoginBinding
+import com.asistlab.tripnotes.other.afterTextChanged
+import com.asistlab.tripnotes.other.gone
+import com.asistlab.tripnotes.other.hide
+import com.asistlab.tripnotes.other.show
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -25,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         viewModel.isLogged.observe(this) {
             if (it) {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
@@ -66,8 +67,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setFormObserver() {
-        viewModel.formState.observe(this, Observer {
-            val state = it ?: return@Observer
+        viewModel.formState.observe(this, {
+            val state = it ?: return@observe
             if (viewModel.isLoginPage.value!!) {
                 binding.signIn.isEnabled = state.isDataValid
             } else {
@@ -87,9 +88,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setResultObserver() {
-        viewModel.error.observe(this, Observer {
-            val error = it ?: return@Observer
-            Toast.makeText(applicationContext, error, Toast.LENGTH_LONG).show()
+        viewModel.error.observe(this, {
+            if (it != null) {
+                Toast.makeText(applicationContext, it, Toast.LENGTH_LONG).show()
+            }
         })
     }
 

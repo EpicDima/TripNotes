@@ -10,6 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.asistlab.tripnotes.R
+import com.asistlab.tripnotes.databinding.FragmentAccountBinding
+import com.asistlab.tripnotes.databinding.FragmentStatisticsBinding
+import com.asistlab.tripnotes.ui.account.AccountViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -18,18 +21,19 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class StatisticsFragment : Fragment() {
 
-    private val statisticsViewModel: StatisticsViewModel by viewModels()
+    private val viewModel: StatisticsViewModel by viewModels()
+    private lateinit var binding: FragmentStatisticsBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_statistics, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        statisticsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        binding = FragmentStatisticsBinding.inflate(inflater)
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.asistlab.tripnotes.ui
+package com.asistlab.tripnotes.ui.choose
 
 import android.content.Intent
 import android.location.Geocoder
@@ -11,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_choose_point.*
+import java.io.IOException
 import java.util.*
 
 /**
@@ -37,8 +38,12 @@ class ChoosePointActivity : AppCompatActivity(), OnMapReadyCallback {
             val result = Intent()
             val target = map.cameraPosition.target!!
             val address = getAddress(target)
+            if (address == null) {
+                target_info.text = getString(R.string.no_connection)
+                return@setOnClickListener
+            }
             if (address.isEmpty()) {
-                Toast.makeText(this, getString(R.string.cant_select_place), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.cant_select_place, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             result.putExtra(LOCATION_KEY, target)
@@ -52,16 +57,25 @@ class ChoosePointActivity : AppCompatActivity(), OnMapReadyCallback {
         map = googleMap
         geocoder = Geocoder(this, Locale.getDefault())
         map.setOnCameraIdleListener {
-            target_info.text = getAddress(map.cameraPosition.target!!)
+            val address = getAddress(map.cameraPosition.target!!)
+            if (address == null) {
+                target_info.text = getString(R.string.no_connection)
+            } else {
+                target_info.text = address
+            }
         }
     }
 
-    private fun getAddress(target: LatLng): String {
-        val addresses = geocoder.getFromLocation(target.latitude, target.longitude, 1)
-        return if (addresses.size > 0) {
-            addresses[0].getAddressLine(0).replace("Unnamed Road, ", "")
-        } else {
-            ""
+    private fun getAddress(target: LatLng): String? {
+        return try {
+            val addresses = geocoder.getFromLocation(target.latitude, target.longitude, 1)
+            if (addresses.size > 0) {
+                addresses[0].getAddressLine(0).replace("Unnamed Road, ", "")
+            } else {
+                ""
+            }
+        } catch (e: IOException) {
+            null
         }
     }
 }
