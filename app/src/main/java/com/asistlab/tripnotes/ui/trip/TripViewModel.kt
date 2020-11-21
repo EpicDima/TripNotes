@@ -10,7 +10,6 @@ import com.asistlab.tripnotes.R
 import com.asistlab.tripnotes.data.TripDao
 import com.asistlab.tripnotes.data.model.Trip
 import com.asistlab.tripnotes.other.getImageName
-import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
@@ -31,7 +30,7 @@ class TripViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     companion object {
-        const val MAX_POINTS = 5
+        const val MAX_POINTS = 7
     }
 
     private var trip: Trip = Trip()
@@ -98,9 +97,8 @@ class TripViewModel @ViewModelInject constructor(
     private fun saveImage() {
         if (image != null) {
             val baos = ByteArrayOutputStream()
-            image!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-            storage.child(auth.currentUser!!.uid + "-" + trip.id)
-                .putBytes(baos.toByteArray())
+            image!!.compress(Bitmap.CompressFormat.JPEG, 70, baos)
+            storage.child(getImageName(auth, trip)).putBytes(baos.toByteArray())
         }
     }
 
@@ -126,7 +124,7 @@ class TripViewModel @ViewModelInject constructor(
             _error.postValue(R.string.invalid_dates)
             false
         } else if (!isPointsValid(points.value!!)) {
-            _error.postValue(R.string.invalid_dates)
+            _error.postValue(R.string.invalid_points)
             false
         } else {
             true
@@ -181,7 +179,7 @@ class TripViewModel @ViewModelInject constructor(
         }
     }
 
-    fun addPoint(address: String, location: LatLng) {
+    fun addPoint(address: String, location: Trip.LatLng) {
         if (trip.locations.size < MAX_POINTS) {
             val addresses = ArrayList(trip.addresses)
             addresses.add(address)
@@ -196,7 +194,7 @@ class TripViewModel @ViewModelInject constructor(
     }
 
     data class Point(
-        val location: LatLng,
+        val location: Trip.LatLng,
         val address: String
     )
 

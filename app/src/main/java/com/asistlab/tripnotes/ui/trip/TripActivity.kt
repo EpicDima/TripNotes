@@ -21,7 +21,10 @@ class TripActivity : AppCompatActivity() {
         setContentView(R.layout.activity_trip)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, TripFragment.newInstance(intent.extras?.getLong(TRIP_ID_KEY) ?: 0))
+                .replace(
+                    R.id.container,
+                    TripFragment.newInstance(intent.extras?.getLong(TRIP_ID_KEY) ?: 0)
+                )
                 .commitNow()
         }
     }

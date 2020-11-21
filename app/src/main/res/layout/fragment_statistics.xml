@@ -22,121 +22,69 @@
             android:paddingBottom="8dp"
             tools:context=".ui.statistics.StatisticsFragment">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="8dp"
+                android:padding="4dp"
+                android:text="@string/by_category"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/all_number_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="@string/all_trips_count"
-                    android:textSize="17sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <com.db.williamchart.view.BarChartView
+                android:id="@+id/category_barchart"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:layout_marginBottom="28dp"
+                app:chart_axis="x"
+                app:chart_barsColor="@color/orange"
+                app:chart_labelsColor="@color/orange"
+                app:chart_labelsSize="14sp"
+                app:chart_spacing="32dp" />
 
-                <TextView
-                    android:id="@+id/all_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:padding="4dp"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/all_number_label"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="8dp"
+                android:padding="4dp"
+                android:text="@string/duration_of_trips"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/active_number_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="@string/active_trips_count"
-                    android:textSize="17sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <com.db.williamchart.view.LineChartView
+                android:id="@+id/duration_linechart"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:layout_marginBottom="28dp"
+                app:chart_axis="x"
+                app:chart_gridEffect="solid"
+                app:chart_labelsColor="@color/orange"
+                app:chart_labelsSize="15sp"
+                app:chart_lineColor="@color/orange"
+                app:chart_lineThickness="3dp"
+                app:chart_smoothLine="true" />
 
-                <TextView
-                    android:id="@+id/active_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:padding="4dp"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/active_number_label"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="8dp"
+                android:padding="4dp"
+                android:text="@string/number_of_trip_locations"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/not_started_number_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="@string/not_started_trips_count"
-                    android:textSize="17sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/not_started_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:padding="4dp"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/not_started_number_label"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.db.williamchart.view.LineChartView
+                android:id="@+id/location_linechart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:id="@+id/history_number_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="@string/completed_trips_count"
-                    android:textSize="17sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/history_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:padding="4dp"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/history_number_label"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="256dp"
+                android:layout_marginBottom="28dp"
+                app:chart_axis="x"
+                app:chart_gridEffect="dashed"
+                app:chart_labelsColor="@color/orange"
+                app:chart_labelsSize="16sp"
+                app:chart_lineColor="@color/orange"
+                app:chart_lineThickness="3dp"
+                app:chart_smoothLine="true" />
 
         </LinearLayout>
 

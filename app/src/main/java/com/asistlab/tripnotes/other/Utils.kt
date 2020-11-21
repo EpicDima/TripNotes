@@ -43,7 +43,7 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 
 fun RecyclerView.addDelimiter(context: Context) {
     addItemDecoration(
-        ImpovedDividerItemDecoration(
+        DividerItemDecoration(
             ContextCompat.getDrawable(
                 context,
                 R.drawable.divider

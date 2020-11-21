@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asistlab.tripnotes.R
 import com.asistlab.tripnotes.data.model.Trip
-import com.asistlab.tripnotes.ui.other.TripsAdapter
+import com.asistlab.tripnotes.ui.common.TripsAdapter
 import com.asistlab.tripnotes.ui.trip.TripActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.StorageReference

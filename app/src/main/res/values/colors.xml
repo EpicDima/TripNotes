@@ -10,4 +10,5 @@
     <color name="dark_divider">#E5E5E5</color>
     <color name="light_divider">#F1F1F1</color>
     <color name="red">#DA0C0C</color>
+    <color name="orange">#FF9800</color>
 </resources>

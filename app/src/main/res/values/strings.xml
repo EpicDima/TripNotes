@@ -32,7 +32,7 @@
     <string name="cancel">Cancel</string>
     <string name="end_time">End time</string>
     <string name="start_time">Start time</string>
-    <string name="started">Active</string>
+    <string name="active">Active</string>
     <string name="add_point">Add point</string>
     <string name="center_of_map">Center of map</string>
     <string name="remaining_time">Remaining days</string>
@@ -68,6 +68,14 @@
     <string name="not_started_trips_count">Not started trips count</string>
     <string name="completed_trips_count">Completed trips count</string>
     <string name="all_trips_count">All trips count</string>
-
+    <string name="category_not_started">Not started</string>
+    <string name="category_started">Started</string>
+    <string name="category_done">Done</string>
+    <string name="category_finished">Finished</string>
+    <string name="by_category">Number of trips by category</string>
+    <string name="duration_of_trips">The duration of the trips</string>
+    <string name="number_of_trip_locations">Number of trip locations</string>
+    <string name="delete_trip_dialog_title">Delete trip</string>
+    <string name="delete_trip_dialog_message">Do you really want to delete this trip?</string>
 
 </resources>

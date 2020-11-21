@@ -2,7 +2,6 @@ package com.asistlab.tripnotes.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.android.gms.maps.model.LatLng
 import java.text.DateFormat
 import java.util.*
 
@@ -42,7 +41,8 @@ data class Trip(
 
     fun isStarted(): Boolean = (Date() >= start)
 
-    fun isOver(): Boolean = done
-            || (Date() >= end)
+    fun isOver(): Boolean = done || (Date() >= end)
 
+
+    class LatLng(val latitude: Double = 0.0, val longitude: Double = 0.0)
 }

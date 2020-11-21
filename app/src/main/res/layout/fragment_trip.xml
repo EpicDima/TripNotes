@@ -32,8 +32,8 @@
 
                 <ImageView
                     android:id="@+id/image"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
+                    android:layout_width="240dp"
+                    android:layout_height="240dp"
                     android:contentDescription="@string/trip_image"
                     android:src="@drawable/ic_default_trip_image_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -116,6 +116,7 @@
                     android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:padding="4dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp"
@@ -127,21 +128,22 @@
                     android:id="@+id/description_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/enter_description"
+                    android:importantForAutofill="no"
                     android:inputType="textMultiLine"
                     android:maxLength="500"
                     android:maxLines="5"
                     android:minLines="1"
                     android:textSize="18sp"
-                    android:visibility="@{page == Page.SHOW ? View.GONE : View.VISIBLE}"
-                    android:importantForAutofill="no"/>
+                    android:visibility="@{page == Page.SHOW ? View.GONE : View.VISIBLE}" />
 
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:id="@+id/start_label"

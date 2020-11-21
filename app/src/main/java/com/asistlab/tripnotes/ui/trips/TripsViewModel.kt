@@ -9,7 +9,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -29,19 +28,16 @@ class TripsViewModel @ViewModelInject constructor(
     val trips: LiveData<List<Trip>> = _trips
 
     init {
-//        database.child(auth.currentUser!!.uid).addListenerForSingleValueEvent(object :
-//            ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                val snaphots: Iterator<DataSnapshot> = snapshot.children.iterator()
-//                while (snaphots.hasNext()) {
-//                    val child = snaphots.next()
-//                    val trip = child.getValue()<Trip>() // error
-//                    upsert(trip)
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {}
-//        })
+        database.child(auth.currentUser!!.uid).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.forEach {
+                    upsert(it.getValue(Trip::class.java))
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
     private fun upsert(trip: Trip?) = viewModelScope.launch(Dispatchers.IO) {

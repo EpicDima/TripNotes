@@ -12,17 +12,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asistlab.tripnotes.R
+import com.asistlab.tripnotes.data.model.Trip
 import com.asistlab.tripnotes.databinding.FragmentTripBinding
-import com.asistlab.tripnotes.other.addDelimiter
-import com.asistlab.tripnotes.other.afterTextChanged
-import com.asistlab.tripnotes.other.showBackButton
-import com.asistlab.tripnotes.other.supportActionBar
+import com.asistlab.tripnotes.other.*
 import com.asistlab.tripnotes.ui.choose.ChoosePointActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -49,7 +49,7 @@ class TripFragment : Fragment() {
     private var ok: MenuItem? = null
     private var toMap: MenuItem? = null
 
-    private var editDone = true
+    private var enableEdit: Boolean = true
     private var firstTime: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,35 +73,55 @@ class TripFragment : Fragment() {
 
         setAdapter()
         setListeners()
-        setTripObserver()
         setEdittextListeners()
         setInputObservers()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        requireActivity().menuInflater.inflate(R.menu.trip_menu, menu)
+        edit = menu.findItem(R.id.edit)
+        done = menu.findItem(R.id.done)
+        ok = menu.findItem(R.id.ok)
+        toMap = menu.findItem(R.id.to_map)
+        super.onCreateOptionsMenu(menu, inflater)
+        setTripObserver()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.edit -> {
+            viewModel.edit()
+            true
+        }
+        R.id.done -> {
+            viewModel.done()
+            true
+        }
+        R.id.ok -> {
+            viewModel.save()
+            true
+        }
+        R.id.to_map -> {
+            val linkForMap = viewModel.getLinkForMap()
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(linkForMap)
+            startActivity(intent)
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+
     private fun updateOnPageChange(
-        image: Boolean? = null, edit: Boolean? = null, done: Boolean? = null, ok: Boolean? = null,
-        toMap: Boolean? = null, homeIcon: Int? = null, title: Int? = null
+        image: Boolean, edit: Boolean, done: Boolean, ok: Boolean,
+        toMap: Boolean, homeIcon: Int, title: Int
     ) {
-        if (image != null) {
-            binding.image.isEnabled = image
-        }
-        if (edit != null) {
-            this.edit?.isVisible = edit
-        }
-        if (done != null) {
-            this.done?.isVisible = done
-        }
-        if (ok != null) {
-            this.ok?.isVisible = ok
-        }
-        if (toMap != null) {
-            this.toMap?.isVisible = toMap
-        }
+        binding.image.isEnabled = image
+        this.edit?.isVisible = edit
+        this.done?.isVisible = done
+        this.ok?.isVisible = ok
+        this.toMap?.isVisible = toMap
         supportActionBar().apply {
-            if (homeIcon != null) {
-                setHomeAsUpIndicator(homeIcon)
-            }
-            this.title = title?.let { getString(it) }
+            setHomeAsUpIndicator(homeIcon)
+            this.title = getString(title)
         }
     }
 
@@ -111,8 +131,8 @@ class TripFragment : Fragment() {
         when (page) {
             Page.SHOW -> updateOnPageChange(
                 image = false,
-                edit = true,
-                done = true,
+                edit = enableEdit,
+                done = enableEdit,
                 ok = false,
                 toMap = true,
                 homeIcon = R.drawable.ic_arrow_back_24dp,
@@ -139,9 +159,6 @@ class TripFragment : Fragment() {
             else -> {
             }
         }
-        if (!editDone) {
-            updateOnPageChange(edit = false, done = false)
-        }
     }
 
     private fun setInputObservers() {
@@ -167,18 +184,25 @@ class TripFragment : Fragment() {
                 if (firstTime) {
                     Glide.with(image)
                         .load(viewModel.getImageStorage())
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
                         .placeholder(R.drawable.ic_default_trip_image_24dp)
                         .error(R.drawable.ic_default_trip_image_24dp)
-                        .into(binding.image)
+                        .into(image)
                     if (it.id != 0L && it.isOver()) {
-                        editDone = false
+                        enableEdit = false
                     }
                     firstTime = false
+                    updateAllOnPageChange()
                 }
                 name.text = it.name
                 nameEdittext.setText(it.name)
-                description.text = it.name
-                descriptionEdittext.setText(it.name)
+                if (it.description.isNotEmpty()) {
+                    description.text = it.description
+                    descriptionEdittext.setText(it.description)
+                } else {
+                    description.gone()
+                }
                 start.text = it.startDateToString()
                 end.text = it.endDateToString()
             }
@@ -211,10 +235,19 @@ class TripFragment : Fragment() {
             )
         }
         binding.removePoint.setOnClickListener { viewModel.removePoint() }
-        binding.delete.setOnClickListener {
-            viewModel.delete()
-            requireActivity().finish()
-        }
+        binding.delete.setOnClickListener { openDeleteConfirmationDialog() }
+    }
+
+    private fun openDeleteConfirmationDialog() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(getString(R.string.delete_trip_dialog_title))
+            setMessage(R.string.delete_trip_dialog_message)
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.delete()
+                requireActivity().finish()
+            }
+            setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.cancel() }
+        }.create().show()
     }
 
     private fun setEdittextListeners() {
@@ -227,40 +260,6 @@ class TripFragment : Fragment() {
 
         binding.nameEdittext.afterTextChanged(onInputChange)
         binding.descriptionEdittext.afterTextChanged(onInputChange)
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        requireActivity().menuInflater.inflate(R.menu.trip_menu, menu)
-        edit = menu.findItem(R.id.edit)
-        done = menu.findItem(R.id.done)
-        ok = menu.findItem(R.id.ok)
-        toMap = menu.findItem(R.id.to_map)
-        super.onCreateOptionsMenu(menu, inflater)
-        updateAllOnPageChange()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.edit -> {
-            viewModel.edit()
-            true
-        }
-        R.id.done -> {
-            viewModel.done()
-            true
-        }
-        R.id.ok -> {
-            viewModel.save()
-            true
-        }
-        R.id.to_map -> {
-            val linkForMap = viewModel.getLinkForMap()
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(linkForMap)
-            startActivity(intent)
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
     }
 
     private fun chooseTripTime() {
@@ -292,7 +291,8 @@ class TripFragment : Fragment() {
     private fun addPoint(intent: Intent) {
         val address = intent.getStringExtra(ChoosePointActivity.ADDRESS_KEY)!!
         val location = intent.getParcelableExtra<LatLng>(ChoosePointActivity.LOCATION_KEY)!!
-        viewModel.addPoint(address, location)
+        val location2 = Trip.LatLng(location.latitude, location.longitude)
+        viewModel.addPoint(address, location2)
     }
 
     private fun selectImage(intent: Intent) {

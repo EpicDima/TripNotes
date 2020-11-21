@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * @author EpicDima
  */
-class ImpovedDividerItemDecoration(
+class DividerItemDecoration(
     private val divider: Drawable
 ) : RecyclerView.ItemDecoration() {
 

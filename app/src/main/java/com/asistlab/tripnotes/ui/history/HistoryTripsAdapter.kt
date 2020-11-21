@@ -1,13 +1,11 @@
 package com.asistlab.tripnotes.ui.history
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import com.asistlab.tripnotes.R
 import com.asistlab.tripnotes.data.model.Trip
 import com.asistlab.tripnotes.databinding.ItemTripBinding
-import com.asistlab.tripnotes.other.getImageName
-import com.asistlab.tripnotes.ui.other.TripsAdapter
-import com.bumptech.glide.Glide
+import com.asistlab.tripnotes.other.gone
+import com.asistlab.tripnotes.other.show
+import com.asistlab.tripnotes.ui.common.TripsAdapter
 import com.google.firebase.storage.StorageReference
 
 /**
@@ -19,26 +17,30 @@ class HistoryTripsAdapter(
     onItemClickListener: OnItemClickListener
 ) : TripsAdapter<HistoryTripsAdapter.HistoryTripViewHolder>(storage, userId, onItemClickListener) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryTripViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemTripBinding.inflate(inflater, parent, false)
+    override fun createViewHolder(
+        binding: ItemTripBinding,
+        storage: StorageReference,
+        userId: String
+    ): HistoryTripViewHolder {
         return HistoryTripViewHolder(binding, storage, userId)
     }
 
     class HistoryTripViewHolder(
         binding: ItemTripBinding,
-        private val storage: StorageReference,
-        private val userId: String
-    ) : TripsAdapter.TripViewHolder(binding) {
+        storage: StorageReference,
+        userId: String
+    ) : TripsAdapter.TripViewHolder(binding, storage, userId) {
+
         override fun bind(trip: Trip) {
-            Glide.with(binding.image)
-                .load(storage.child(getImageName(userId, trip)))
-                .placeholder(R.drawable.ic_default_trip_image_24dp)
-                .error(R.drawable.ic_default_trip_image_24dp)
-                .into(binding.image)
-            binding.name.text = trip.name
-            binding.startTime.text = trip.startDateToString()
-            binding.endTime.text = trip.endDateToString()
+            super.bind(trip)
+            binding.apply {
+                if (trip.done) {
+                    status.setText(R.string.done)
+                    status.show()
+                } else {
+                    status.gone()
+                }
+            }
         }
     }
 }

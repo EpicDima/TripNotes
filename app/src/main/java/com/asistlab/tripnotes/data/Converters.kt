@@ -1,8 +1,7 @@
 package com.asistlab.tripnotes.data
 
-import android.location.Location
 import androidx.room.TypeConverter
-import com.google.android.gms.maps.model.LatLng
+import com.asistlab.tripnotes.data.model.Trip
 import com.google.gson.Gson
 import java.util.*
 
@@ -12,11 +11,11 @@ import java.util.*
 class Converters {
 
     @TypeConverter
-    fun locationsToString(value: List<LatLng>): String = Gson().toJson(value)
+    fun locationsToString(value: List<Trip.LatLng>): String = Gson().toJson(value)
 
     @TypeConverter
-    fun stringToLocations(value: String): List<LatLng>
-            = Gson().fromJson(value, Array<LatLng>::class.java).toList()
+    fun stringToLocations(value: String): List<Trip.LatLng> =
+        Gson().fromJson(value, Array<Trip.LatLng>::class.java).toList()
 
     @TypeConverter
     fun pointsToString(value: List<String>): String = Gson().toJson(value)

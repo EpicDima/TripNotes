@@ -4,7 +4,6 @@ plugins {
     id "kotlin-android-extensions"
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
-    id "androidx.navigation.safeargs"
     id "com.google.gms.google-services"
 }
 
@@ -45,7 +44,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.multidex:multidex:$multidex_version"
 
-
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.activity:activity-ktx:$activity_ktx_version"
@@ -66,7 +64,6 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$arch_lifecycle_version"
 
     implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.annotation:annotation:1.1.0"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
@@ -76,6 +73,8 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
 
+    implementation "androidx.annotation:annotation:$annotation_version"
+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
@@ -83,17 +82,20 @@ dependencies {
     implementation "com.google.firebase:firebase-auth-ktx"
     implementation "com.google.firebase:firebase-database-ktx"
     implementation "com.google.firebase:firebase-storage-ktx"
-    implementation "com.firebaseui:firebase-ui-storage:7.0.0"
+    implementation "com.firebaseui:firebase-ui-storage:$firebase_storage_ui_version"
 
     implementation "com.google.android.gms:play-services-auth:$gms_play_services_version"
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
-    implementation "com.google.android.gms:play-services-maps:17.0.0"
-    implementation "com.google.android.gms:play-services-location:17.1.0"
-    implementation "com.google.maps.android:maps-ktx:2.1.1"
-    implementation "com.google.maps.android:maps-utils-ktx:2.1.1"
+    implementation "com.google.code.gson:gson:$gson_version"
 
-    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "com.google.android.gms:play-services-maps:$play_services_maps"
+    implementation "com.google.android.gms:play-services-location:$play_services_location"
+
+    implementation "com.google.maps.android:maps-ktx:$maps_version"
+    implementation "com.google.maps.android:maps-utils-ktx:$maps_version"
+    
+    implementation "com.diogobernardino:williamchart:$williamchart_version"
 }

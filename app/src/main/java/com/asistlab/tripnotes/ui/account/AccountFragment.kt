@@ -1,13 +1,12 @@
 package com.asistlab.tripnotes.ui.account
 
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.asistlab.tripnotes.R
 import com.asistlab.tripnotes.databinding.FragmentAccountBinding
@@ -38,20 +37,18 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.user.observe(viewLifecycleOwner) {
             val user = it ?: return@observe
             if (user.email != null) {
                 binding.email.text = user.email
             }
         }
-
         binding.signOut.setOnClickListener {
-            openConfirmationDialog()
+            openSignOutConfirmationDialog()
         }
     }
 
-    private fun openConfirmationDialog() {
+    private fun openSignOutConfirmationDialog() {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle(getString(R.string.sign_out_dialog_title))
             setMessage(R.string.sign_out_dialog_message)
