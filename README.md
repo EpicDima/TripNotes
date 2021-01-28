@@ -1,7 +1,7 @@
 # TripNotes
-Android test application
 
-Task description:
+### Description
+
 Application, that provide ability to create trip: 
   - name of trip, 
   - display route(from google map),
